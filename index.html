@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snow Tire Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .result p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Snow Tire Recommendation</h1>
+    <label for="zipcode">Enter Your ZIP Code:</label>
+    <input type="text" id="zipcode" placeholder="Enter ZIP Code" />
+    <button onclick="checkSnowTire()">Check</button>
+
+    <div class="result" id="result" style="display:none;">
+        <p id="recommendation"></p>
+    </div>
+</div>
+
+<script>
+    function checkSnowTire() {
+        const zipcode = document.getElementById('zipcode').value.trim();
+        if (zipcode === "") {
+            alert("Please enter a ZIP code.");
+            return;
+        }
+
+        // Here, we simulate the logic. Ideally, you would use a weather API to check the current temperature and forecast
+        // For this mockup, we'll assume that snow tires are recommended if the temperature is typically below 45°F in that area.
+
+        // Sample ZIP code to temperature simulation (mock logic):
+        let temperature = getMockTemperature(zipcode);
+        let recommendationMessage = '';
+
+        if (temperature <= 45) {
+            recommendationMessage = 'It is time to put on your snow tires. Temperatures are low and may cause unsafe driving conditions without proper tires.';
+        } else {
+            recommendationMessage = 'You may not need to put on snow tires just yet. Temperatures are above 45°F.';
+        }
+
+        // Show result
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('recommendation').textContent = recommendationMessage;
+    }
+
+    // Mock function to simulate weather based on ZIP code.
+    function getMockTemperature(zipcode) {
+        // Just an example, in reality, this would fetch weather data based on the ZIP code.
+        const mockData = {
+            "10001": 40, // New York
+            "90001": 65, // Los Angeles
+            "60601": 35, // Chicago
+            "94101": 50  // San Francisco
+        };
+
+        return mockData[zipcode] || 50; // Default to 50°F if ZIP is unknown
+    }
+</script>
+</body>
+</html>
