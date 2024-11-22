@@ -81,6 +81,7 @@ async function getWeatherForecast(lat, lon) {
         // Step 6: Return the temperature data
         return temperatureData;
     } catch (error) {
+        document.getElementById('loading').style.display = 'none';
         alert('Error fetching weather data:', error);
         throw error;
     }
@@ -90,11 +91,11 @@ const latLongMap = new Map();
 
 async function checkSnowTireWithZip() {
     document.getElementById('loading').style.display = 'flex';
+    document.getElementById('result').style.display = 'none';
     const zipcode = document.getElementById('zipcode').value.trim();
     if (zipcode === "") {
         alert("Please enter a ZIP code.");
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('result').style.display = 'none';
         return;
     }
     if (latLongMap.size == 0) {
@@ -102,7 +103,6 @@ async function checkSnowTireWithZip() {
             await getZipsToLatLongMap();
         } catch (error) {
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('result').style.display = 'none';
             alert('Error downloading ZIP code CSV, try again later:', error);
             return;
         }
@@ -111,7 +111,6 @@ async function checkSnowTireWithZip() {
     if (!latLong) {
         alert("Please enter a valid ZIP code.");
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('result').style.display = 'none';
         return;
     }
     const forecast = await getWeatherForecast(latLong.LAT, latLong.LNG);
