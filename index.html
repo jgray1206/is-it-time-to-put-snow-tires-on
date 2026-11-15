@@ -6,53 +6,74 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="A site to answer the age old question: should I put my snow tires on yet?" name="description">
     <title>Is it time to put snow tires on?</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Is it time to put snow tires on?">
+    <meta property="og:description" content="Enter your ZIP code and get a straight answer, based on your local 7-day forecast.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Is it time to put snow tires on?">
+    <meta name="twitter:description" content="Enter your ZIP code and get a straight answer, based on your local 7-day forecast.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="index.js" type="text/javascript"></script>
+    <script defer src="index.js" type="text/javascript"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3558049273034283"
-            crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="container">
-    <h1>Is it time to put snow tires on?</h1>
-    <div class="zip-input" id="zip-input">
-        <label for="zipcode">Enter your ZIP code, or use your current location:</label>
-        <div class="zip-row">
-            <div class="zip-field">
-                <input type="text" id="zipcode" placeholder="ZIP Code" inputmode="numeric" maxlength="5"
-                       autocomplete="postal-code" onkeydown="if (event.key === 'Enter') checkSnowTireWithZip()" />
-                <button type="button" class="location-btn" id="location-btn" onclick="useMyLocation()"
+    <div class="container">
+        <h1>Is it time to put snow tires on?</h1>
+        <div class="zip-input" id="zip-input">
+            <label for="zipcode">Enter your ZIP code, or use your current location:</label>
+            <div class="zip-row">
+                <div class="zip-field">
+                    <input type="text" id="zipcode" placeholder="ZIP Code" inputmode="numeric" maxlength="5"
+                        autocomplete="postal-code" onkeydown="if (event.key === 'Enter') checkSnowTireWithZip()" />
+                    <button type="button" class="location-btn" id="location-btn" onclick="useMyLocation()"
                         title="Use my current location" aria-label="Use my current location">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="7"></circle>
-                        <circle cx="12" cy="12" r="2.5" fill="currentColor"></circle>
-                        <line x1="12" y1="1" x2="12" y2="5"></line>
-                        <line x1="12" y1="19" x2="12" y2="23"></line>
-                        <line x1="1" y1="12" x2="5" y2="12"></line>
-                        <line x1="19" y1="12" x2="23" y2="12"></line>
-                    </svg>
-                </button>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="7"></circle>
+                            <circle cx="12" cy="12" r="2.5" fill="currentColor"></circle>
+                            <line x1="12" y1="1" x2="12" y2="5"></line>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="1" y1="12" x2="5" y2="12"></line>
+                            <line x1="19" y1="12" x2="23" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <button type="button" class="check-btn" onclick="checkSnowTireWithZip()">Check</button>
             </div>
-            <button type="button" class="check-btn" onclick="checkSnowTireWithZip()">Check</button>
         </div>
-    </div>
-    <div class="loading" id="loading" style="display:none;">
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="loading" id="loading" style="display:none;">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
+        <div class="result" id="result" style="display:none;">
+            <p id="recommendation"></p>
+        </div>
+        <details class="info">
+            <summary>Why 45°F?</summary>
+            <h2>When should you put snow tires on?</h2>
+            <p>The usual rule of thumb is to switch to snow (winter) tires once average daily temperatures
+                stay at or below about 45°F (7°C). Below that point, the rubber compound in all-season and
+                summer tires hardens and loses grip, even on dry pavement. Winter tires stay soft in the cold,
+                which helps with braking and handling on ice, slush and snow.</p>
+            <p>This site checks the National Weather Service 7-day forecast for your ZIP code or current
+                location, averages the forecast temperatures, and looks for snow in the forecast. If the average
+                is 45°F or colder, it tells you to get those snow tires on.</p>
+            <h2>When should you take them off?</h2>
+            <p>Winter tires wear quickly in warm weather, so most people swap back to all-seasons once
+                temperatures are consistently above 45°F. You can use this same check in the spring.</p>
+        </details>
     </div>
-    <div class="result" id="result" style="display:none;">
-        <p id="recommendation"></p>
-    </div>
-</div>
 </body>
 <footer>
     <a href="https://github.com/jgray1206/is-it-time-to-put-snow-tires-on" target="_blank">Source Code</a>
