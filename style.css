@@ -40,6 +40,61 @@ h1 {
     font-size: 200%;
     margin: 0;
 }
+
+.zip-row {
+    display: flex;
+    gap: 8px;
+}
+
+.zip-field {
+    position: relative;
+    flex: 1;
+}
+
+.zip-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 44px 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.location-btn {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: #1c4c5b;
+    cursor: pointer;
+}
+
+.location-btn:hover {
+    background-color: #e6eef0;
+}
+
+.check-btn {
+    padding: 10px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #1c4c5b;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.check-btn:hover {
+    background-color: #153a46;
+}
 .lds-roller {
     /* change color here */
     color: #1c4c5b;

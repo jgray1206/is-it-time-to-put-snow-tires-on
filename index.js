@@ -11,31 +11,35 @@ function getRecommendationText(snowInForecast, averageTemp) {
     return recommendationMessage;
 }
 
-async function getSnowTireRecommendation() {
-    if (navigator.geolocation) {
-        try {
-            const loc = await getLocationFromUser();
-            const forecast = await getWeatherForecast(loc.latitude, loc.longitude);
-            const snowInForecast = forecast.some((day) => day.shortForecast.toLowerCase().includes("snow"));
-            const averageTemp = Math.floor(forecast.reduce((sum, day) => sum + day.temperature, 0) / forecast.length);
-            let recommendationMessage = getRecommendationText(snowInForecast, averageTemp);
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('recommendation').textContent = recommendationMessage;
-        } catch (error) {
-            showFallbackButton();
-            return;
-        }
-    } else {
-        showFallbackButton();
-        return;
-    }
-
+async function showRecommendationForCoords(lat, lon) {
+    const forecast = await getWeatherForecast(lat, lon);
+    const snowInForecast = forecast.some((day) => day.shortForecast.toLowerCase().includes("snow"));
+    const averageTemp = Math.floor(forecast.reduce((sum, day) => sum + day.temperature, 0) / forecast.length);
+    const recommendationMessage = getRecommendationText(snowInForecast, averageTemp);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('recommendation').textContent = recommendationMessage;
 }
 
-function showFallbackButton() {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('zip-input').style.display = 'block';
+// Only runs when the user clicks the location icon, so the browser's
+// permission prompt never appears unprompted.
+async function useMyLocation() {
+    if (!navigator.geolocation) {
+        alert('Your browser does not support location services. Please enter your ZIP code instead.');
+        return;
+    }
+    document.getElementById('loading').style.display = 'flex';
+    document.getElementById('result').style.display = 'none';
+    try {
+        const loc = await getLocationFromUser();
+        await showRecommendationForCoords(loc.latitude, loc.longitude);
+    } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+        if (error && error.code === 1) {
+            alert('Location access was denied. Please enter your ZIP code instead.');
+        }
+        // Other errors (e.g. weather fetch) are already alerted in getWeatherForecast.
+    }
 }
 
 function getLocationFromUser() {
@@ -113,14 +117,11 @@ async function checkSnowTireWithZip() {
         document.getElementById('loading').style.display = 'none';
         return;
     }
-    const forecast = await getWeatherForecast(latLong.LAT, latLong.LNG);
-    const snowInForecast = forecast.some((day) => day.shortForecast.toLowerCase().includes("snow"));
-    const averageTemp = Math.floor(forecast.reduce((sum, day) => sum + day.temperature, 0) / forecast.length);
-
-    let recommendationMessage = getRecommendationText(snowInForecast, averageTemp);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('recommendation').textContent = recommendationMessage;
+    try {
+        await showRecommendationForCoords(latLong.LAT, latLong.LNG);
+    } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+    }
 }
 
 async function getZipsToLatLongMap() {
@@ -149,5 +150,3 @@ async function getZipsToLatLongMap() {
         latLongMap.set(key, rowObject);
     }
 }
-
-getSnowTireRecommendation();
