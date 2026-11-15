@@ -46,14 +46,19 @@ function getLocationFromUser() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
             resolve(position.coords);
-        }, reject);
+        }, reject, {
+            enableHighAccuracy: false, // a rough position is plenty for a forecast
+            maximumAge: 600000,        // reuse a position fixed in the last 10 minutes
+            timeout: 10000             // give up after 10 seconds
+        });
     });
 }
 
 async function getWeatherForecast(lat, lon) {
     try {
         // Step 1: Build the endpoint URL
-        const url = `https://api.weather.gov/points/${lat},${lon}`;
+        // weather.gov only accepts up to 4 decimals and redirects anything more precise
+        const url = `https://api.weather.gov/points/${Number(lat).toFixed(4)},${Number(lon).toFixed(4)}`;
 
         // Step 2: Get the grid points from the API (the forecast URL)
         const response = await fetch(url);
