@@ -7,11 +7,19 @@ body {
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    /* horizontally centered, sitting in the upper part of the page (html adds 20px top and 40px bottom padding) */
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .container {
+    width: 100%;
+    box-sizing: border-box;
     max-width: 600px;
-    margin: auto;
+    /* top gap scales with screen height: ~16px on tiny screens, up to 160px on big monitors */
+    margin: clamp(16px, 14vh, 160px) auto 0;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
