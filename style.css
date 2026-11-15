@@ -47,27 +47,9 @@ h1 {
     line-height: 1.5;
 }
 
+/* The explainer is opened from the footer link, so its own toggle is hidden. */
 .info summary {
-    display: block;
-    width: fit-content;
-    margin: 0 auto 10px;
-    padding: 6px 14px;
-    font-size: 90%;
-    color: #1c4c5b;
-    background-color: #fff;
-    border: 1px solid #1c4c5b;
-    border-radius: 4px;
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-}
-
-.info summary::-webkit-details-marker {
     display: none;
-}
-
-.info summary:hover {
-    background-color: #e6eef0;
 }
 
 .info h2 {
@@ -239,6 +221,10 @@ footer {
     background-color: #333;
     color: #fff;
     text-align: center;
+}
+footer span {
+    font-size: 80%;
+    margin: 0 4px;
 }
 footer a {
     font-size: 80%;
