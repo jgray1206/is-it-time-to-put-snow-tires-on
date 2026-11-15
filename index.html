@@ -58,7 +58,7 @@
             <p id="recommendation"></p>
         </div>
         <details class="info" id="why">
-            <summary>Why 45°F?</summary>
+            <summary style="display:none;">Why 45°F?</summary>
             <h2>When should you put snow tires on?</h2>
             <p>The usual rule of thumb is to switch to snow (winter) tires once average daily temperatures
                 stay at or below about 45°F (7°C). Below that point, the rubber compound in all-season and
@@ -74,7 +74,7 @@
     </div>
 </body>
 <footer>
-    <a href="#why" onclick="toggleWhy(event)">Why 45°F?</a>
+    <a href="#why" onclick="event.preventDefault(); var w = document.getElementById('why'); w.open = !w.open; if (w.open) w.scrollIntoView({ behavior: 'smooth', block: 'nearest' });">Why 45°F?</a>
     <span aria-hidden="true">·</span>
     <a href="https://github.com/jgray1206/is-it-time-to-put-snow-tires-on" target="_blank">Source Code</a>
 </footer>

@@ -11,16 +11,6 @@ function getRecommendationText(snowInForecast, averageTemp) {
     return recommendationMessage;
 }
 
-// Footer link: show/hide the "Why 45°F?" explainer.
-function toggleWhy(event) {
-    event.preventDefault();
-    const why = document.getElementById('why');
-    why.open = !why.open;
-    if (why.open) {
-        why.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-}
-
 async function showRecommendationForCoords(lat, lon) {
     const forecast = await getWeatherForecast(lat, lon);
     const snowInForecast = forecast.some((day) => day.shortForecast.toLowerCase().includes("snow"));
