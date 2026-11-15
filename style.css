@@ -18,8 +18,8 @@ body {
     width: 100%;
     box-sizing: border-box;
     max-width: 600px;
-    /* top gap scales with screen height: ~16px on tiny screens, up to 160px on big monitors */
-    margin: clamp(16px, 14vh, 160px) auto 0;
+    /* top gap scales with screen height: 24% of the window, between 16px and 360px */
+    margin: clamp(16px, 24vh, 360px) auto 0;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
